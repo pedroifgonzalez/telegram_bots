@@ -37,16 +37,22 @@ class Travel(BaseModel):
 
     @property
     def origin_short_name(self):
-        return Province(self.origin).name
+        try:
+            return Province(self.origin).name.upper()
+        except ValueError:
+            return self.origin
 
     @property
     def destination_short_name(self):
-        return Province(self.destination).name
+        try:
+            return Province(self.destination).name.upper()
+        except ValueError:
+            return self.destination
 
     def __repr__(self) -> str:
         out = "From {0} to {1} at {2} {3}".format(
-            self.origin_short_name.upper(),
-            self.destination_short_name.upper(),
+            self.origin_short_name,
+            self.destination_short_name,
             self.transport,
             self.date_time
         )
