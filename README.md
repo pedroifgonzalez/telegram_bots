@@ -1,5 +1,5 @@
-# Python-based Telegram scripts and/or bots
+# Python-based Telegram scripts and bots
 
-<p align="center">
-    <img src="https://img.shields.io/badge/tests-67%25-blue" /></a>
-</p>
+## Description
+
+### This is a set of Telegram scripts and bots that I have made with the purpose of saving time, make my life easier or just coding for fun
