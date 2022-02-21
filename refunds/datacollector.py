@@ -5,10 +5,13 @@ from telethon import TelegramClient, events
 from utils import filter_travels, parse_refunds
 
 settings = dotenv_values(".env")
-api_id = settings.get("APP_API_ID")
-api_hash = settings.get("APP_API_HASH")
+api_id = int(settings.get("APP_API_ID") or 0)
+api_hash = str(settings.get("APP_API_HASH"))
+app_title = str(settings.get("APP_TITLE"))
 
-client = TelegramClient("anon", api_id=api_id, api_hash=api_hash)
+if not(api_id and api_hash and app_title):
+    raise Exception("Missing env variables")
+client = TelegramClient(app_title, api_id=api_id, api_hash=api_hash)
 
 
 @client.on(events.NewMessage)
