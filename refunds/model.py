@@ -1,6 +1,7 @@
-from enum import Enum
-from pydantic import BaseModel
 from datetime import datetime
+from enum import Enum
+
+from pydantic import BaseModel
 
 
 class Province(Enum):
@@ -54,6 +55,6 @@ class Travel(BaseModel):
             self.origin_short_name,
             self.destination_short_name,
             self.transport,
-            self.date_time
+            self.date_time,
         )
         return out

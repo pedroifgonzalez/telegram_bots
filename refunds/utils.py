@@ -1,20 +1,17 @@
 import re
-from typing import Iterable, List
 from datetime import datetime
+from typing import Iterable, List
 
 from model import Travel
-
 
 SEP = "(-){41}\n"
 HEADER = re.compile(f"Reintegros\n{SEP}")
 COMMENT = re.compile(f"{SEP}Venta por el apk y agencia\n")
-ORIGIN_DESTINATION =  "(🌐)((.+) - (.+))\n"
+ORIGIN_DESTINATION = "(🌐)((.+) - (.+))\n"
 TRANSPORT = "(🚌|🚂)(.*)\n"
 SECTION = "Tramo: ((.+) - (.+))\n"
-DETAILS = (
-    "(.{3}). ([0-9]{2}-[0-9]{2}-[0-9]{4}) ([0-9]{2}:[0-9]{2}) (.*)\n?")
-BLOCK = re.compile(
-    f"{SEP}{ORIGIN_DESTINATION}{TRANSPORT}{SECTION}{DETAILS}")
+DETAILS = "(.{3}). ([0-9]{2}-[0-9]{2}-[0-9]{4}) ([0-9]{2}:[0-9]{2}) (.*)\n?"
+BLOCK = re.compile(f"{SEP}{ORIGIN_DESTINATION}{TRANSPORT}{SECTION}{DETAILS}")
 
 
 def parse_refunds(text: str) -> List[Travel]:
@@ -39,15 +36,17 @@ def parse_refunds(text: str) -> List[Travel]:
             date_time = "-".join(date_parts) + " " + travel.group(13)
             date_time = datetime.fromisoformat(date_time)
             seat = re.findall("[0-9]+", travel.group(14))[0]
-            travels.append(Travel(
-                origin=origin,
-                destination=destination,
-                transport=transport,
-                section=section,
-                date_time=date_time,
-                day_of_week=day_of_week,
-                seat=seat
-            ))
+            travels.append(
+                Travel(
+                    origin=origin,
+                    destination=destination,
+                    transport=transport,
+                    section=section,
+                    date_time=date_time,
+                    day_of_week=day_of_week,
+                    seat=seat,
+                )
+            )
     return travels
 
 
