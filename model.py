@@ -25,7 +25,7 @@ class Province(Enum):
 
 
 class Travel(BaseModel):
-    """Travels parsed from Viajando channel"""
+    """Travels parsed from Viajando Anuncia channel"""
 
     origin: str
     destination: str
