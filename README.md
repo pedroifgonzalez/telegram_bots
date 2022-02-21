@@ -1,6 +1,6 @@
 # Python-based Telegram scripts and bots
 
-<a href="https://img.shields.io/badge/coverage-90-green">
+<p><a href="https://img.shields.io/badge/coverage-90-green"></p>
 
 ## Description
 
