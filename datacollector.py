@@ -17,7 +17,7 @@ async def my_event_handler(event: Any):
     if "Reintegros" in event.raw_text:
         travels = parse_refunds(event.raw_text)
         filtered_travels = filter_travels(travels, origin="La Habana",
-       	    day_of_week="sab")
+       	    day_of_week="sáb")
         print(filtered_travels)
 
 if __name__ == "__main__":
