@@ -1,11 +1,12 @@
+from datetime import datetime
 import os
 import pathlib
 from typing import Any, Dict, List
 from unittest.mock import MagicMock
 
 import pytest
-
-from utils import filter_travels, parse_refunds
+from utils import (filter_travels, filter_travels_by_day_and_month,
+                   parse_refunds)
 
 
 def read_from_file(file_path: str):
@@ -63,3 +64,38 @@ def test_filter_travels(
         expected_count: int
         ):
     assert len(filter_travels(travels, **filters)) == expected_count
+
+
+@pytest.mark.parametrize(
+    "travels, day, month, expected_count",
+    [(
+        [
+            Travel(
+                destination="La Habana",
+                day=datetime.now().day,
+                month=datetime.now().month)
+        ],
+        datetime.now().day,
+        datetime.now().month,
+        1
+    ),
+     (
+        [
+            Travel(
+                destination="La Habana",
+                day=29,
+                month=1)
+        ],
+        14,
+        10,
+        0
+    )]
+)
+def test_filter_travels_by_day_and_month(
+        travels: List[Travel],
+        day: int,
+        month: int,
+        expected_count: int
+        ):
+    travels_count = len(filter_travels_by_day_and_month(travels, day, month))
+    assert travels_count == expected_count
