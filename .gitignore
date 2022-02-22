@@ -2,6 +2,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,django,virtualenv,visualstudiocode,pycharm+all,sublimetext,windows,venv
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django,virtualenv,visualstudiocode,pycharm+all,sublimetext,windows,venv
 *.session
+*.session-journal
 *vscode
 
 
