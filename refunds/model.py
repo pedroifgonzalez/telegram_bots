@@ -37,14 +37,14 @@ class Travel(BaseModel):
     seat: int
 
     @property
-    def origin_short_name(self):
+    def origin_short_name(self) -> str:
         try:
             return Province(self.origin).name.upper()
         except ValueError:
             return self.origin
 
     @property
-    def destination_short_name(self):
+    def destination_short_name(self) -> str:
         try:
             return Province(self.destination).name.upper()
         except ValueError:
