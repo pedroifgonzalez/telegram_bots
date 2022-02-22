@@ -18,7 +18,7 @@ client = TelegramClient(app_title, api_id=api_id, api_hash=api_hash)
 
 @client.on(events.NewMessage)
 async def my_event_handler(event: Any):
-    if "Reintegros" in event.raw_text:
+    if event._chat.username == "apkviajandoinfo" and event.is_channel:
         travels = parse_refunds(event.raw_text)
         # Add filters here (check Travel class attributes)
         # origin="La Habana", day_of_week="sáb"
