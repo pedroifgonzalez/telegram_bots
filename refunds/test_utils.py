@@ -1,9 +1,10 @@
 import os
 import pathlib
-from unittest.mock import MagicMock
 from typing import Any, List
+from unittest.mock import MagicMock
 
 import pytest
+
 from utils import filter_travels, parse_refunds
 
 
