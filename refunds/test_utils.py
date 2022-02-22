@@ -1,6 +1,6 @@
 import os
 import pathlib
-from typing import Any, List
+from typing import Any, Dict, List
 from unittest.mock import MagicMock
 
 import pytest
@@ -28,6 +28,7 @@ def test_parse_refunds(text_to_parse: str):
 
 
 Travel = MagicMock
+empty_dict: Dict[str, Any] = dict()
 
 
 @pytest.mark.parametrize(
@@ -44,6 +45,14 @@ Travel = MagicMock
                 Travel(destination="Matanzas", seat=11),
             ],
             dict(seat=11),
+            2,
+        ),
+        (
+            [
+                Travel(destination="La Habana", seat=11),
+                Travel(destination="Matanzas", seat=11),
+            ],
+            empty_dict,
             2,
         ),
     ],
