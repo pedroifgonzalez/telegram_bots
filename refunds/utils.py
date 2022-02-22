@@ -68,16 +68,3 @@ def filter_travels(travels: Iterable[Travel], **travel_attrs) -> List[Travel]:
         if valid:
             filtered_travels.append(travel)
     return filtered_travels
-
-
-def filter_travels_by_day_and_month(
-        travels: List[Travel],
-        day: int,
-        month: int
-        ) -> List[Travel]:
-    filtered_travels = [
-        travel
-        for travel in travels
-        if travel.day == day and travel.month == month
-    ]
-    return filtered_travels
