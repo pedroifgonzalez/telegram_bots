@@ -78,6 +78,6 @@ def filter_travels_by_day_and_month(
     filtered_travels = [
         travel
         for travel in travels
-        if travel.day==day and travel.month==month
+        if travel.day == day and travel.month == month
     ]
     return filtered_travels
