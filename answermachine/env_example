@@ -1,0 +1,5 @@
+APP_API_ID=your_api_id
+APP_API_HASH=your_api_hash
+APP_TITLE=your_script_custom_name
+USERNAMES=username1,username2
+PHONE_NUMBERS=phone_number1,phone_number2
