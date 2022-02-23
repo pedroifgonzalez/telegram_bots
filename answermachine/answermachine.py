@@ -45,11 +45,11 @@ async def get_user_status() -> UserStatus:
 
 async def check_offline_status_duration(duration: float) -> bool:
     """
-    Check if user was offile during certain duration of time (seconds)
+    Check if user was offline during certain duration of time (seconds)
 
     :param duration: Duration given in seconds
     :type duration: float
-    :return: Whether user was offile during that duration time or not
+    :return: Whether user was offline during that duration time or not
     :rtype: bool
     """
     user_status = await get_user_status()
