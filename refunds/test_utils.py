@@ -4,7 +4,6 @@ from typing import Any, Dict, List
 from unittest.mock import MagicMock
 
 import pytest
-
 from utils import filter_travels, parse_refunds
 
 
@@ -63,3 +62,4 @@ def test_filter_travels(
         expected_count: int
         ):
     assert len(filter_travels(travels, **filters)) == expected_count
+

@@ -37,18 +37,26 @@ class Travel(BaseModel):
     seat: int
 
     @property
-    def origin_short_name(self):
+    def origin_short_name(self) -> str:
         try:
             return Province(self.origin).name.upper()
         except ValueError:
             return self.origin
 
     @property
-    def destination_short_name(self):
+    def destination_short_name(self) -> str:
         try:
             return Province(self.destination).name.upper()
         except ValueError:
             return self.destination
+
+    @property
+    def day(self) -> int:
+        return self.date_time.day
+
+    @property
+    def month(self) -> int:
+        return self.date_time.month
 
     def __repr__(self) -> str:
         out = "From {0} to {1} at {2} {3}".format(

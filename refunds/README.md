@@ -43,6 +43,8 @@ APP_API_ID=your_api_id
 APP_API_HASH=your_api_hash
 ````
 
+Also you need to be joined to this [channel](https://t.me/apkviajandoinfo)
+
 Now, you can run the script:
 
 ````text
