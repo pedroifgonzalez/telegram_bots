@@ -19,7 +19,7 @@ client = TelegramClient(app_title, api_id=api_id, api_hash=api_hash)
 
 USERNAMES = str(settings.get("USERNAMES")).split(",")
 PHONE_NUMBERS = str(settings.get("PHONE_NUMBERS")).split(",")
-ANSWER_MACHINE_MESSAGE = "🤖: Hello there! I'm just a bot\nSoon my master see\
+ANSWER_MACHINE_MESSAGE = "🤖: Hello there! I'm just a bot\nSoon my master see \
 this message, he will text you."
 
 
