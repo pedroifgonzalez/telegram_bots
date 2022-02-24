@@ -6,7 +6,6 @@ from typing import Any, Dict
 
 from dotenv import dotenv_values
 from telethon import TelegramClient, events
-
 from utils import UserStatus
 
 settings = dotenv_values(str(Path(__file__).parent) + os.sep + ".env")
