@@ -24,7 +24,7 @@ ANSWER_MACHINE_MESSAGE = "🤖: Hello there! I'm just a bot\nSoon my master see\
 this message, he will text you."
 
 
-async def get_user_status() -> UserStatus:
+async def get_my_user_status() -> UserStatus:
     """
     Get User Telegram status
 
@@ -52,11 +52,11 @@ async def check_offline_status_duration(duration: float) -> bool:
     :return: Whether user was offline during that duration time or not
     :rtype: bool
     """
-    user_status = await get_user_status()
+    user_status = await get_my_user_status()
     if user_status.name == "UserStatusOffline":
         start_datetime = datetime.now()
         await asyncio.sleep(duration)
-        user_status = await get_user_status()
+        user_status = await get_my_user_status()
         end_datetime = datetime.now()
         difference_datetime = end_datetime - start_datetime
         if (
