@@ -2,8 +2,9 @@ import asyncio
 from datetime import datetime
 from typing import Any, Dict
 
-from settings import API_HASH, API_ID, APP_TITLE, USERNAMES, PHONE_NUMBERS
 from telethon import TelegramClient, events
+
+from settings import API_HASH, API_ID, APP_TITLE, PHONE_NUMBERS, USERNAMES
 from utils import UserStatus
 
 client = TelegramClient(APP_TITLE, api_id=API_ID, api_hash=API_HASH)
