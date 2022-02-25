@@ -10,7 +10,7 @@ This is a set of Telegram scripts and bots that I have made with the purpose of 
 
 ### 1. refunds
 
-Retrieve and filter travel's refunds from *Viajando Anuncia* Channel
+Retrieve and filter travels' refunds from *Viajando Anuncia* Channel
 
 Topics covered:
 
@@ -18,6 +18,8 @@ Topics covered:
 - Parsing
 - Data validation
 - Asynchronous Programming
+
+***
 
 ### 2. answermachine
 
