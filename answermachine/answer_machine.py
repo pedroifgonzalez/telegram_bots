@@ -24,22 +24,36 @@ ANSWER_MACHINE_MESSAGE = "🤖: Hello there! I'm just a bot\nSoon my master see\
 this message, he will text you."
 
 
+async def get_user_status_by_username(username: str) -> UserStatus:
+    """
+    Get a User Telegram status by given username
+
+    :param username: User username to retrieve status from
+    :type username: str
+    :return: _description_
+    :rtype: UserStatus
+    """
+    user_obj = await client.get_entity(username)
+    user_dict: Dict[str, Any] = user_obj.to_dict()
+    status: Dict[str, Any] = user_dict.get("status", {})
+    name = status.get("_")
+    was_online = status.get("was_online") or None
+    expires_datetime = status.get("expires") or None
+    user_status = UserStatus(
+        name=name, was_online=was_online, expires_datetime=expires_datetime
+    )
+    return user_status
+
+
 async def get_my_user_status() -> UserStatus:
     """
-    Get User Telegram status
+    Get my User Telegram status
 
     :return: A Telegram custom status
     :rtype: str
     """
     my_user = await client.get_me()
-    my_user_dict: Dict[str, Any] = my_user.to_dict()
-    status: Dict[str, Any] = my_user_dict.get("status", {})
-    name = status.get("_")
-    was_online = status.get("was_online") or None
-    expires_datetime = status.get("expires") or None
-    my_user_status = UserStatus(
-        name=name, was_online=was_online, expires_datetime=expires_datetime
-    )
+    my_user_status = await get_user_status_by_username(my_user.username)
     return my_user_status
 
 
@@ -68,7 +82,7 @@ async def check_offline_status_duration(duration: float) -> bool:
 
 
 @client.on(events.NewMessage)
-async def my_event_handler(event: Any):
+async def handle_new_message(event: Any):
     if event.is_private:
         if await check_offline_status_duration(10):
             sender = await event.get_sender()
