@@ -1,25 +1,13 @@
 import asyncio
-import os
 from datetime import datetime
-from pathlib import Path
 from typing import Any, Dict
 
-from dotenv import dotenv_values
+from settings import API_HASH, API_ID, APP_TITLE, USERNAMES, PHONE_NUMBERS
 from telethon import TelegramClient, events
-
 from utils import UserStatus
 
-settings = dotenv_values(str(Path(__file__).parent) + os.sep + ".env")
-api_id = int(settings.get("APP_API_ID") or 0)
-api_hash = str(settings.get("APP_API_HASH"))
-app_title = str(settings.get("APP_TITLE"))
+client = TelegramClient(APP_TITLE, api_id=API_ID, api_hash=API_HASH)
 
-if not (api_id and api_hash and app_title):
-    raise Exception("Missing env variables")
-client = TelegramClient(app_title, api_id=api_id, api_hash=api_hash)
-
-USERNAMES = str(settings.get("USERNAMES")).split(",")
-PHONE_NUMBERS = str(settings.get("PHONE_NUMBERS")).split(",")
 ANSWER_MACHINE_MESSAGE = "🤖: Hello there! I'm just a bot\nSoon my master see\
 this message, he will text you."
 
