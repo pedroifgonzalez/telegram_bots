@@ -8,5 +8,5 @@ try:
     BOT_TOKEN = config("BOT_TOKEN", cast=str)
     USERNAMES = config("USERNAMES")
     PHONE_NUMBERS = config("PHONE_NUMBERS")
-except:
+except Exception:
     raise Exception("Missing env variables")
