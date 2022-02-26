@@ -1,15 +1,43 @@
 import argparse
+from datetime import datetime
 from typing import Any, Dict
 
-from model import Travel
 from notifypy import Notify
-from settings import API_HASH, API_ID, APP_TITLE
 from telethon import TelegramClient, events
+
+from model import Travel
+from settings import API_HASH, API_ID, APP_TITLE
 from utils import filter_travels, parse_refunds
 
+
+class DateTimeAction(argparse.Action):
+    """
+    Custom Action for datetime argument
+
+    :param argparse: argparse Action class
+    :type argparse: class
+    """
+    def __init__(self, option_strings, dest, nargs=None, **kwargs):
+        if nargs is not None:
+            raise ValueError("nargs not allowed")
+        super().__init__(option_strings, dest, **kwargs)
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        try:
+            values = datetime.fromisoformat(values)
+            if values < datetime.today():
+                raise ValueError("Set a datetime greater than today")
+            setattr(namespace, self.dest, values)
+        except ValueError:
+            raise
+
+
 parser = argparse.ArgumentParser(prog="Data Collector")
-for name in Travel.__fields__:
-    parser.add_argument(f"-{name}")
+for name, atr in Travel.__fields__.items():
+    if atr.type_ == datetime:
+        parser.add_argument(f"-{name}", action=DateTimeAction)
+        continue
+    parser.add_argument(f"-{name}", type=atr.type_)
 
 client = TelegramClient(APP_TITLE, api_id=API_ID, api_hash=API_HASH)
 filters: Dict[str, Any] = dict()
