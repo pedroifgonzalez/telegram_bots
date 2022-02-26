@@ -51,6 +51,10 @@ Now, you can run the script:
 python refunds/datacollector.py
 ````
 
+````sh
+python refunds/datacollector.py -origin "La Habana" -destination Matanzas -day_of_week vie
+````
+
 ## Use case
 
 You may want use the script to get notified when a specific travel origin and destination are founded

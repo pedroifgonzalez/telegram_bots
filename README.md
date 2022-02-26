@@ -23,7 +23,7 @@ Topics covered:
 Usage:
 
 ````sh
-python datacollector -origin "La Habana" -destination Matanzas -day_of_week vie
+python datacollector.py -origin "La Habana" -destination Matanzas -day_of_week vie
 ````
 
 ***
