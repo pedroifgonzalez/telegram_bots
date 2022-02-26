@@ -1,34 +1,36 @@
-import os
-from pathlib import Path
+import argparse
 from typing import Any, Dict
 
-from dotenv import dotenv_values
+from model import Travel
+from notifypy import Notify
+from settings import API_HASH, API_ID, APP_TITLE
 from telethon import TelegramClient, events
 from utils import filter_travels, parse_refunds
 
-settings = dotenv_values(str(Path(__file__).parent) + os.sep + ".env")
-api_id = int(settings.get("APP_API_ID") or 0)
-api_hash = str(settings.get("APP_API_HASH"))
-app_title = str(settings.get("APP_TITLE", "datacollector"))
+parser = argparse.ArgumentParser(prog="Data Collector")
+for name in Travel.__fields__:
+    parser.add_argument(f"-{name}")
 
-if not(api_id and api_hash and app_title):
-    raise Exception("Missing env variables")
-client = TelegramClient(app_title, api_id=api_id, api_hash=api_hash)
+client = TelegramClient(APP_TITLE, api_id=API_ID, api_hash=API_HASH)
+filters: Dict[str, Any] = dict()
 
 
 @client.on(events.NewMessage)
 async def my_event_handler(event: Any):
     if event._chat.username == "apkviajandoinfo" and event.is_channel:
         travels = parse_refunds(event.raw_text)
-        # Add filters here (check Travel class attributes)
-        # origin="La Habana", day_of_week="sáb"
-        filters: Dict[str, Any] = dict()
-        filtered_travels = filter_travels(
-            travels, **filters
-        )
-        print(filtered_travels)
+        filtered_travels = filter_travels(travels, **filters)
+        for travel in filtered_travels:
+            notification = Notify(APP_TITLE, travel)
+            notification.send()
+
+
+def main():
+    args = parser.parse_args()
+    filters.update(**vars(args))
+    client.start()
+    client.run_until_disconnected()
 
 
 if __name__ == "__main__":
-    client.start()
-    client.run_until_disconnected()
+    main()

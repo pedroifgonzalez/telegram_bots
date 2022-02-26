@@ -66,3 +66,6 @@ class Travel(BaseModel):
             self.date_time,
         )
         return out
+
+    def __str__(self) -> str:
+        return self.__repr__()
