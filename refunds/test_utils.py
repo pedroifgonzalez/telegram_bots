@@ -62,4 +62,3 @@ def test_filter_travels(
         expected_count: int
         ):
     assert len(filter_travels(travels, **filters)) == expected_count
-
