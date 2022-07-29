@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from datetime import datetime
 from typing import Any, Dict
 
@@ -8,6 +9,8 @@ from settings import API_HASH, API_ID, APP_TITLE, PHONE_NUMBERS, USERNAMES
 from utils import UserStatus
 
 client = TelegramClient(APP_TITLE, api_id=API_ID, api_hash=API_HASH)
+logging.basicConfig(
+    filename='answer_machine.log', filemode="w", level=logging.INFO)
 
 ANSWER_MACHINE_MESSAGE = "🤖: Hello there! I'm just a bot\nSoon my master see\
 this message, he will text you."
@@ -55,6 +58,7 @@ async def check_offline_status_duration(duration: float) -> bool:
     :return: Whether user was offline during that duration time or not
     :rtype: bool
     """
+    logging.info("Checking user offline status duration")
     user_status = await get_my_user_status()
     if user_status.name == "UserStatusOffline":
         start_datetime = datetime.now()
@@ -66,7 +70,9 @@ async def check_offline_status_duration(duration: float) -> bool:
             user_status.name == "UserStatusOffline"
             and difference_datetime.seconds >= duration
         ):
+            logging.info("User was offline for {} seconds".format(duration))
             return True
+    logging.info("User was not offline for {} seconds".format(duration))
     return False
 
 
@@ -78,9 +84,13 @@ async def handle_new_message(event: Any):
             username = sender.username
             phone_number = sender.phone
             if username in USERNAMES or phone_number in PHONE_NUMBERS:
+                logging.info(f"Replying to {username}...")
                 await event.respond(ANSWER_MACHINE_MESSAGE)
+                logging.info(f"Replied to {username}")
 
 
 if __name__ == "__main__":
+    logging.info("Answer machine app started")
     client.start()
+    logging.info("Answer machine waiting for messages...")
     client.run_until_disconnected()
