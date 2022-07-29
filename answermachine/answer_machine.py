@@ -58,7 +58,7 @@ async def check_offline_status_duration(duration: float) -> bool:
     :return: Whether user was offline during that duration time or not
     :rtype: bool
     """
-    logging.info("Checking user offline status duration")
+    logging.info(f"Checking user to be offline during {duration} seconds")
     user_status = await get_my_user_status()
     if user_status.name == "UserStatusOffline":
         start_datetime = datetime.now()
